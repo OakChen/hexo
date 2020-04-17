@@ -11,15 +11,27 @@ do
 		echo "Usage:"
 		echo "-h, --help        Display this information"
 		echo "-H, --map-home    Map $HOME directory"
-		echo "-p, --port        Listen port, default 4000"
+		echo "-P, --port        Listen port, default 4000"
+		echo "-p, --passwd      Map /etc/passwd"
+		echo "-g, --group       Map /etc/group"
+		echo "-s, --shadow      Map /etc/shadow"
 		exit
 		;;
 	-H | --map-home)
 		maphome=true
 		;;
-	-p | --port)
+	-P | --port)
 		port=$2
 		shift
+		;;
+	-p | --password)
+		mappasswd=true
+		;;
+	-g | --group)
+		mapgroup=true
+		;;
+	-s | --shadow)
+		mapshadow=true
 		;;
 	*)
 		others="$*"
@@ -36,6 +48,18 @@ fi
 
 if [ "$port" != "" ]; then
 	options="$options -p $port:4000"
+fi
+
+if [ "$mappasswd" = "true" ]; then
+	options="$options -v /etc/passwd:/etc/passwd"
+fi
+
+if [ "$mapgroup" = "true" ]; then
+	options="$options -v /etc/group:/etc/group"
+fi
+
+if [ "$mapshadow" = "true" ]; then
+	options="$options -v /etc/shadow:/etc/shadow"
 fi
 
 options="$options $others"
