@@ -1,9 +1,9 @@
-FROM ubuntu:latest
+FROM ubuntu:22.04
 MAINTAINER Oak Chen <oak@sfysoft.com>
 
 RUN apt-get update -y && \
     apt-get install -y --no-install-recommends npm ca-certificates procps vim git && \
-    apt-get install -y --no-install-recommends command-not-found command-not-found-data && \
+    apt-get install -y --no-install-recommends command-not-found && \
     apt-get install -y --no-install-recommends language-pack-en language-pack-en-base && \
     apt-get install -y --no-install-recommends language-pack-zh-hans language-pack-zh-hans-base && \
     rm -rf /var/lib/apt/lists/* && \
